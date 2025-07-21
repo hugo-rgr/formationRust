@@ -83,9 +83,110 @@ fn main() {
         println!(" choix hors système !! limite système ");
     } else {
         println!("Vous avez sélectionné : {}", options[choix-1]);
-        // ici on peut exécuter un
+        // ici on peut exécuter une action selon choix dans options
     }
 
+    // Les tableaux
+    let tab:[i32;4] = [11, 23, 19, 19];
+    let _tab2:[i32;4] = [11, 23, 19, 19]; //pour éviter le warning de variable inutilisée on rajoute le _
+
+    // parcourir le tableau
+    for i in 0..tab.len() {
+        println!("le tableau tab {}", tab[i]);
+    }
+
+    for &elt in &tab {
+        println!("l'élément du tableau est {}", elt);
+    }
+    // &elt => itérer sur des références aux éléments du tableau
+    // &tab => on passe une référence au tableau pour éviter de prendre la possession du tableau entier
+
+    //les loop
+    let mut compteur = 0;
+    loop {
+        println!(" Compteur : {}", compteur);
+        compteur += 1;
+        if compteur == 3 {
+            break;
+        }
+    }
+
+    // boucle while
+    let mut compteur2 = 0;
+    while compteur2 < 4 {
+        println!(" Compteur 2 = {}", compteur2);
+        compteur2 += 1;
+    }
+
+    // structure
+    struct Salarie {
+        nom: String,
+        ville: String,
+        age: u32
+    }
+
+    // usage struct => on crée une instance de la structure
+    let kevin = Salarie {
+        nom: String::from("Kevin"),
+        ville: String::from("Lyon"),
+        age: 22
+    };
+
+    // accès aux attributs de la structure
+    println!("Nom : {}, Ville : {}, Age : {}", kevin.nom, kevin.ville, kevin.age);
+
+
+    // Match
+    let nombre = 5;
+    match nombre {
+        1 => println!("Un"),
+        2 => println!("Deux"),
+        3 => println!("Trois"),
+        4 => println!("Quatre"),
+        5 => println!("Cinq"),
+        _ => println!("Autre nombre"),
+    }
+
+    // Fonctions associées (impl) pour des structures (struct)
+    struct Personne {
+        nom: String,
+    }
+
+    impl Personne {
+        fn afficher(&self) { // emprunt immuable => ne modifie rien
+            println!("La personne suivante {} est convoquée ", self.nom);
+        }
+    }
+
+    let personne = Personne {
+        nom: "Alexandre".to_string(),
+    };
+
+    personne.afficher();
+
+    // Exemple compteur struct
+    struct Compteur {
+        value: u32,
+    }
+
+    impl Compteur {
+        fn afficher(&self) { // lecture de la valeur sans la modifier
+            println!("Valeur actuelle du compteur : {}", self.value);
+        }
+
+        fn incrementer(&mut self) { // mut pour modifier la valeur
+            self.value += 1;
+        }
+
+        fn deplacer(self){ // prend la possession de self, il n'est plus accessible après. Transfert complet (consommation)
+            println!("Déplacé: {}", self.value);
+        }
+    }
+
+    let mut compteur = Compteur { value: 0 };
+    compteur.afficher();
+    compteur.incrementer();
+    compteur.afficher();
 }
 
 fn addition(n1:i32, n2:i32) -> i32 {
