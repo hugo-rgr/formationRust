@@ -84,7 +84,7 @@ fn main(){
 
     loop {
 
-        let options = ["Afficher solde", "Déposer", "Retrait", "Renommer", "Liste comptes", "Fermer un compte", "Quitter"];
+        let options = ["Créer un compte", "Afficher solde", "Déposer", "Retrait", "Renommer", "Liste comptes", "Fermer un compte", "Quitter"];
         println!("Menu:");
         for (i, option) in options.iter().enumerate(){
             println!("{}.{}", i+1, option);
@@ -109,6 +109,24 @@ fn main(){
 
         match choix {
             1 => {
+                println!("Veuillez saisir le nom du nouveau compte:");
+                let mut nom_compte = String::new();
+                io::stdin().read_line(&mut nom_compte).expect("Erreur lors de la lecture");
+                let nom_compte = nom_compte.trim().to_string();
+                
+                // Vérifier si le compte existe déjà
+                if comptes.iter().any(|c| c.nom == nom_compte) {
+                    println!("Un compte avec ce nom existe déjà.");
+                } else {
+                    let nouveau_compte = CompteBancaire {
+                        nom: nom_compte,
+                        solde: 0.0,
+                    };
+                    comptes.push(nouveau_compte);
+                    println!("Le compte a bien été créé.");
+                }
+            },
+            2 => {
                 let nom_compte = saisir_nom_compte();
                 // Afficher le solde du compte
                 if let Some(compte) = comptes.iter().find(|c| c.nom == nom_compte) {
@@ -117,7 +135,7 @@ fn main(){
                     println!("Compte non trouvé.");
                 }
             },
-            2 => {
+            3 => {
                 let nom_compte = saisir_nom_compte();
                 // Déposer de l'argent sur le compte
                 if let Some(compte) = comptes.iter_mut().find(|c| c.nom == nom_compte) {
@@ -136,7 +154,7 @@ fn main(){
                     println!("Compte non trouvé.");
                 }
             },
-            3 => {
+            4 => {
                 let nom_compte = saisir_nom_compte();
                 // Retirer de l'argent du compte
                 if let Some(compte) = comptes.iter_mut().find(|c| c.nom == nom_compte) {
@@ -155,7 +173,7 @@ fn main(){
                     println!("Compte non trouvé.");
                 }
             },
-            4 => {
+            5 => {
                 let nom_compte = saisir_nom_compte();
                 // Renommer le compte
                 if let Some(compte) = comptes.iter_mut().find(|c| c.nom == nom_compte) {
@@ -168,14 +186,14 @@ fn main(){
                     println!("Compte non trouvé.");
                 }
             }
-            5 => {
+            6 => {
                 // Afficher la liste de tous les comptes
                 println!("Liste des comptes:");
                 for compte in &comptes {
                     compte.afficher();
                 }
             },
-            6 => {
+            7 => {
                 let nom_compte = saisir_nom_compte();
                 // Fermer un compte
                 if let Some(index) = comptes.iter().position(|c| c.nom == nom_compte) {
@@ -185,7 +203,7 @@ fn main(){
                     println!("Compte non trouvé.");
                 }
             },
-            7 => {
+            8 => {
                 // Quitter le programme
                 println!("Merci d'avoir utilisé notre système bancaire. Au revoir !");
                 return;
