@@ -1,3 +1,5 @@
+use std::io;
+
 struct CompteBancaire {
     nom: String,
     solde: f64,
@@ -52,7 +54,7 @@ fn main(){
     // Test renommer
     compte1.renommer("Hugo Dupont".to_string());
 
-    let mut compte2 = CompteBancaire {
+    let compte2 = CompteBancaire {  // Supprimé mut inutile
         nom: "John Doe".to_string(),
         solde: 1000.00,
     };
@@ -75,8 +77,128 @@ fn main(){
         compte.deposer(100.0);
     }
 
-    println!("\nFermeture de tous les comptes:");
-    for compte in comptes.into_iter() {
-        compte.fermer();
+    //println!("\nFermeture de tous les comptes:");
+    //for compte in comptes.into_iter() {
+    //    compte.fermer();
+    //}
+
+    loop {
+
+        let options = ["Afficher solde", "Déposer", "Retrait", "Renommer", "Liste comptes", "Fermer un compte", "Quitter"];
+        println!("Menu:");
+        for (i, option) in options.iter().enumerate(){
+            println!("{}.{}", i+1, option);
+        }
+
+        let mut choix = String::new();
+        io::stdin().read_line(&mut choix).expect("Attention erreur de lecture");
+        let choix:usize = match choix.trim().parse(){
+            Ok(num) => num,
+            Err(_) => {
+                println!("Veuillez saisir un numéro de valide");
+                return;
+            }
+        };
+
+        if choix == 0 || choix > options.len(){
+            println!(" choix hors système !! limite système ");
+            return;
+        } else {
+            println!("Vous avez sélectionné : {}", options[choix-1]);
+        }
+
+        match choix {
+            1 => {
+                let nom_compte = saisir_nom_compte();
+                // Afficher le solde du compte
+                if let Some(compte) = comptes.iter().find(|c| c.nom == nom_compte) {
+                    compte.afficher();
+                } else {
+                    println!("Compte non trouvé.");
+                }
+            },
+            2 => {
+                let nom_compte = saisir_nom_compte();
+                // Déposer de l'argent sur le compte
+                if let Some(compte) = comptes.iter_mut().find(|c| c.nom == nom_compte) {
+                    println!("Montant à déposer:");
+                    let mut montant_str = String::new();
+                    io::stdin().read_line(&mut montant_str).expect("Erreur de lecture");
+                    let montant = match montant_str.trim().parse::<f64>() {
+                        Ok(montant) => montant,
+                        Err(_) => {
+                            println!("Montant invalide !");
+                            return;
+                        }
+                    };
+                    compte.deposer(montant);
+                } else {
+                    println!("Compte non trouvé.");
+                }
+            },
+            3 => {
+                let nom_compte = saisir_nom_compte();
+                // Retirer de l'argent du compte
+                if let Some(compte) = comptes.iter_mut().find(|c| c.nom == nom_compte) {
+                    println!("Montant à retirer:");
+                    let mut montant_str = String::new();
+                    io::stdin().read_line(&mut montant_str).expect("Erreur de lecture");
+                    let montant = match montant_str.trim().parse::<f64>() {
+                        Ok(montant) => montant,
+                        Err(_) => {
+                            println!("Montant invalide !");
+                            return;
+                        }
+                    };
+                    compte.retirer(montant);
+                } else {
+                    println!("Compte non trouvé.");
+                }
+            },
+            4 => {
+                let nom_compte = saisir_nom_compte();
+                // Renommer le compte
+                if let Some(compte) = comptes.iter_mut().find(|c| c.nom == nom_compte) {
+                    println!("Veuillez saisir le nouveau nom du compte:");
+                    let mut nouveau_nom = String::new();
+                    io::stdin().read_line(&mut nouveau_nom).expect("Erreur de lecture");
+                    let nouveau_nom = nouveau_nom.trim().to_string();
+                    compte.renommer(nouveau_nom);
+                } else {
+                    println!("Compte non trouvé.");
+                }
+            }
+            5 => {
+                // Afficher la liste de tous les comptes
+                println!("Liste des comptes:");
+                for compte in &comptes {
+                    compte.afficher();
+                }
+            },
+            6 => {
+                let nom_compte = saisir_nom_compte();
+                // Fermer un compte
+                if let Some(index) = comptes.iter().position(|c| c.nom == nom_compte) {
+                    let compte = comptes.remove(index);
+                    compte.fermer();
+                } else {
+                    println!("Compte non trouvé.");
+                }
+            },
+            7 => {
+                // Quitter le programme
+                println!("Merci d'avoir utilisé notre système bancaire. Au revoir !");
+                return;
+            },
+            _ => unreachable!(),
+        }
     }
+
+}
+
+fn saisir_nom_compte() -> String {
+    println!("Veuillez saisir le nom du compte:");
+    let mut nom_compte = String::new();
+    io::stdin().read_line(&mut nom_compte).expect("Erreur de lecture");
+    nom_compte.trim().to_string()
 }
