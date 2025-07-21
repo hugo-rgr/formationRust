@@ -26,11 +26,9 @@ impl CompteBancaire{
         }
     }
 
-    fn renommer(&mut self, nouveau_nom: String) -> CompteBancaire {
-        CompteBancaire {
-            nom: nouveau_nom,
-            solde: self.solde,
-        }
+    fn renommer(&mut self, nouveau_nom: String) {
+        self.nom = nouveau_nom;
+        println!("Compte renommé en: {}", self.nom);
     }
 
     fn fermer(self){ //self ici est consommé ici, on ne peut plus utiliser ensuite
