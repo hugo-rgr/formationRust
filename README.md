@@ -1,6 +1,5 @@
 # RUST - ROGER Hugo M1 AL
-
-# 21/07/2025
+*21/07/2025*
 
 ## Présentation de Rust
 
@@ -9,7 +8,7 @@
 
 ## I. Mise en place de Rust
 
-Aller sur le site officiel de Rust et le télécharger.
+*Aller sur le site officiel de Rust et le télécharger*
 
 ### Vérification de l'installation
 
@@ -23,58 +22,57 @@ Pour vérifier Cargo (gestionnaire de paquets de Rust, permet de créer des nouv
 cargo --version
 ```
 
-Rust est un langage compilé (son compilateur est rustc et son extension est .rs). Il génère un .exe ou un .out après compilation.
+Rust est un langage compilé (son compilateur est rustc et son extension est .rs)
+Génère un .exe ou un .out après compilation
 
-### Créer un nouveau projet
+### Commandes Cargo de base
 
+**Créer un nouveau projet :**
 ```bash
 cargo new tp0
 ```
 
-### Build le projet
-
+**Build le projet :**
 ```bash
 cargo build
 ```
 
-### Exécuter le projet
-
+**Exécuter le projet :**
 ```bash
 cargo run
 ```
 
-### Exécuter les tests
-
+**Exécuter les tests :**
 ```bash
 cargo test
 ```
 
-### Créer un exécutable puis le lancer
-
+**Créer un exécutable puis le lancer :**
 ```bash
 rustc main.rs
 ./main.exe
 ```
 
-**Note :** Les dépendances sont à ajouter dans le fichier `Cargo.toml`
+Les dépendances sont à ajouter dans le fichier `Cargo.toml`
 
 ## II. Notions de code de base en Rust
 
-Dans le fichier `main.rs`, `fn main()` est la fonction principale.
+Dans le fichier main.rs, `fn main()` est la fonction principale.
 
 ### 1) Variables
 
 `let` pour déclarer une variable
 
-**Exemple avec entier non signé sur 32 bits et affichage dans la console via println :**
+Exemple avec entier non signé sur 32 bits et affichage dans la console via println :
 
 ```rust
-let age: u32 = 30; // u32 = entier non signé sur 32 bits (valeur positive).
-// Si :u32 n'est pas spécifié, par défaut, le compilateur déduit que c'est un i32 quand la variable est un nombre
+let age:u32 = 30; // u32 = entier non signé sur 32 bits (valeur positive).
+//Si :u32 n'est pas spécifié, par défaut, le compilateur déduit que c'est un i32 quand
+//variable est un nombre
 println!("J'ai {} ans.", age);
 ```
 
-**Par convention de RUST :** il faut utiliser le snake_case, et ne jamais commencer par chiffre, ni espace, ni tirets
+Par convention de RUST, il faut utiliser le snake_case, et ne jamais commencer par chiffre, ni espace, ni tirets
 
 ### 2) Fonctions
 
@@ -83,8 +81,8 @@ println!("J'ai {} ans.", age);
 **Déclarer une fonction (exemple avec addition) :**
 
 ```rust
-fn addition(n1: i32, n2: i32) -> i32 { // il faut bien spécifier le type de retour avec ->
-    return n1 + n2;
+fn addition(n1:i32, n2:i32) -> i32 { // il faut bien spécifier le type de retour avec ->
+    return n1+n2;
 }
 
 // Appeler et afficher la fonction dans la fonction main
@@ -94,10 +92,10 @@ println!("La somme est {}", resultat);
 
 **Référence :** `&str` est de type de chaîne de caractère
 
-**Exemple :**
+Exemple :
 
 ```rust
-fn sayHello(nom: &str) {
+fn sayHello(nom: &str){
     println!("Bonjour, {}", nom);
 }
 
@@ -132,8 +130,9 @@ for i in 1..6 {
 }
 
 let voitures = ["jeep", "renault", "bmw"];
+
 for voiture in voitures {
-    // itérer sur un tableau
+    //itérer sur un tableau
     println!("Voiture : {}", voiture);
 }
 
@@ -144,11 +143,11 @@ for (i, voiture) in voitures.iter().enumerate() {
 }
 ```
 
-**Exemple de vecteur :** un vecteur, contrairement à un tableau classique, a sa taille qui croît ou diminue de manière dynamique en fonction des besoins
+**Exemple de vecteur :** un vecteur, contrairement à un tableau classique, à sa taille qui croît ou diminue de manière dynamique en fonction des besoins
 
 ```rust
 let noms = vec![String::from("Kevin"), String::from("Noureddine")];
-for (i, nom) in noms.iter().enumerate() {
+for (i, nom) in noms.iter().enumerate(){
     println!("Nom {}: {}", i, nom);
 }
 ```
@@ -157,26 +156,202 @@ for (i, nom) in noms.iter().enumerate() {
 
 ```rust
 let mut choix = String::new();
-let choix: usize = match choix.trim().parse() {
+let choix:usize = match choix.trim().parse(){
     Ok(num) => num,
     Err(_) => {
         println!("Veuillez saisir un numéro de valide");
         return;
     }
 };
+
+let nombre = 5;
+match nombre {
+    1 => println!("Un"),
+    2 => println!("Deux"),
+    3 => println!("Trois"),
+    4 => println!("Quatre"),
+    5 => println!("Cinq"),
+    _ => println!("Autre nombre"), //cas par défaut
+}
 ```
 
-### 4) Notions diverses
+**boucles loop :**
 
-**Input/output**
+```rust
+loop {
+    println!(" Compteur : {}", compteur);
+    compteur += 1;
+    if compteur == 3 {
+        break;
+    }
+}
+```
+
+**boucles while :**
+
+```rust
+let mut compteur2 = 0;
+while compteur2 < 4 {
+    println!(" Compteur 2 = {}", compteur2);
+    compteur2 += 1;
+}
+```
+
+### 4) Les tableaux
+
+On peut parcourir les tableaux avec des indices :
+
+```rust
+let tab:[i32;4] = [11, 23, 19, 19];
+
+for i in 0..tab.len() {
+    println!("le tableau tab {}", tab[i]);
+}
+```
+
+On peut aussi parcourir par référencement :
+
+```rust
+for &elt in &tab {
+    println!("l'élément du tableau est {}", elt);
+}
+```
+
+### 5) Structures
+
+**Définition de la structure :**
+
+```rust
+struct Salarie {
+    nom: String,
+    ville: String,
+    age: u32
+}
+```
+
+**Usage (création d'une instance de la structure) :**
+
+```rust
+let kevin = Salarie {
+    nom: String::from("Kevin"),
+    ville: String::from("Lyon"),
+    age: 22
+};
+```
+
+**Accès aux attributs :**
+
+```rust
+println!("Nom : {}, Ville : {}, Age : {}", kevin.nom, kevin.ville, kevin.age);
+```
+
+**impl :** pour implémenter des fonctions associées à la structure portant le même nom :
+
+```rust
+impl Personne { // associé à la structure Personne
+    fn afficher(&self) {
+        println!("La personne suivante {} est convoquée ", self.nom);
+    }
+}
+```
+
+## 4) Notions diverses
+
+### Input/output
 
 ```rust
 // au début du fichier : import de libraries
 use std::io;
 ```
 
-**Variable mutable (modifier une variable sans la déplacer) :**
+### Variable mutable (modifier une variable sans la déplacer) :
 
 ```rust
 let mut choix = String::new();
 ```
+
+### self (en paramètres de fonction) :
+
+- **&self :** lecture de la valeur sans la modifier
+- **&mut self :** pour rendre la valeur modifiable dans la fonction
+- **self :** prend la possession de self, il n'est plus accessible après. Transfert complet (consommation). Utile pour des types qui ne doivent être utilisés qu'une seule fois (ex: sockets, tokens)
+
+## II. Entrées / sorties
+
+Il faut bien mettre la gestion d'erreurs dans la fonction main :
+
+```rust
+fn main() ->io::Result<()> {// gestion d'erreurs
+    Ok(()) // exemple de valeur à retourner dans le main (ou Err(e) s'il y a erreur)
+}
+```
+
+### 1) Ecriture dans un fichier
+
+Il faut bien importer ces libraries :
+
+```rust
+use std::fs::File;
+use std::io::{self, Write};
+```
+
+**Créer un fichier :**
+```rust
+File::create();
+```
+
+**Ecrire dans un fichier :**
+```rust
+file_write_all();
+```
+
+### 2) Lecture à partir d'un fichier
+
+**Importer ces libraries :**
+
+```rust
+use std::fs::File;
+use std::io::{self,BufReader,Read};
+```
+
+**Ouvrir fichier :**
+```rust
+File::open();
+```
+
+**Lecteur tamponné :**
+```rust
+BufReader::new(file); // file = fichier ouvert
+// il a des fonctions comme read_to_string() pour afficher 
+// le contenu du fichier sous forme en string
+```
+
+## III. TPs
+
+### 1) TP1
+
+Implémentation d'un système de gestion de compte bancaire simple avec l'interpréteur de Rust.
+
+**On peut :**
+- Afficher le solde
+- Déposer de l'argent
+- Voir le compte
+- Quitter le programme
+
+Le but était d'appliquer les concepts de base de Rust, ainsi que de mettre en place une gestion d'entrée utilisateur.
+
+### 2) TP2
+
+Amélioration du système de gestion de compte bancaire du TP1 avec utilisation d'une structure et implémentations de fonctions. Il gère plusieurs comptes bancaires qu'on met dans un vecteur (liste dynamique).
+
+**On peut :**
+- Créer un nouveau compte
+- Afficher le solde du compte choisi
+- Déposer de l'argent sur le compte choisi
+- Retirer de l'argent sur le compte choisi
+- Renommer un compte choisi
+- Afficher la liste de tous les comptes
+- Fermer un compte choisi
+- Quitter le programme
+
+Le but était aussi de manipuler les structures et les concepts d'ownership pour la gestion mémoire.
