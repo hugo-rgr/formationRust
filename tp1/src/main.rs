@@ -5,11 +5,7 @@ fn main() {
     let titulaire: &str = "John Doe";
     let solde: f64 = 1000.00; //€
 
-    let comptes_list = vec![numero_compte];
-
-    //let numero_compte2: &str = "002";
-    //let titulaire2: &str = "John Smith";
-    //let solde2: f64 = 569.36; //€
+    let comptes_list = vec![numero_compte.to_string() + " - " + titulaire];
 
     let options = ["Afficher solde", "Retrait", "Liste comptes", "Quitter"];
     println!("Menu:");
@@ -75,7 +71,7 @@ fn effectuer_retrait(solde: f64) {
     println!("Retiré : {}€, Nouveau solde : {}€", montant, new_solde);
 }
 
-fn lister_comptes(comptes_list: &Vec<&str>) {
+fn lister_comptes(comptes_list: &Vec<String>) {
     println!("Liste des comptes:");
     for (i, compte) in comptes_list.iter().enumerate(){
         println!("Compte {}: {}", i + 1, compte);
