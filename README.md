@@ -439,3 +439,34 @@ Création d'un gestionnaire de fichiers interactif utilisant les structures, l'o
 * Quitter le programme
 
 Le but était d'appliquer les concepts d'ownership (notamment avec la méthode de suppression qui consomme `self`), la gestion des fichiers avec les I/O, l'utilisation de la bibliothèque `chrono` pour les dates, et la manipulation des structures avec `impl`. Le programme utilise `match` pour la gestion des erreurs et des options, ainsi que les emprunts avec `&` pour éviter les transferts d'ownership inutiles.
+
+## IV) Threads
+
+- Mutex : Pour protéger l’accès à une donnée partagée entre plusieurs threads.
+- Arc: pour partager entre les tâches (comme un pointeur intelligent qui permet de partager la propriété entre plusieurs tâches) :
+
+```rust
+Arc::new(Mutex::new(()));
+```
+
+- thread::spawn : créer un nouveau thread
+
+## V) Réseau - Serveur asynchrone
+
+- Utilisation de la librarie tokio pour gérer l’asynchrone
+- TcpStream::connect("<ip>:<port>") pour flux de données bidirectionnelles
+- TcpListener pour connexions entrantes
+- Mots clés pour l’asynchrone : async et await
+- tokio a aussi des méthodes de thread adaptées à l’asynchrone comme tokio::spawn, tokio::AsyncReadExt, tokio::AsyncReadExt
+
+## VI) TP4
+
+Création d’un serveur de journalisation asynchrone. Ecoute un port TCP, puis reçoit des messages des clients connectés (qui peuvent être connectés simultanément)
+
+Un fichier de log avec horodatage est enregistré.
+
+- Utilisation de tokio et de chrono::Utc
+- TCP ( TcpListener et TcpStream)
+- Mutex / Arc
+
+Deux projets : serveur (dossier tp4) et client (tp4). Le client envoie la chaîne de caractères au serveur, et le serveur le reçoit et l’écrit dans le fichier de logs.
