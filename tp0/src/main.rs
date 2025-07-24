@@ -1,4 +1,10 @@
 use std::io;
+use chrono::Utc;
+
+struct User {
+   nom:String,
+   secu:String
+}
 
 fn main() {
 
@@ -187,6 +193,38 @@ fn main() {
     compteur.afficher();
     compteur.incrementer();
     compteur.afficher();
+
+    //Utc::now(); //heure actuelle
+    println!("{}", Utc::now().format("%d/%m/%Y")); // formatter date au format français JJ/MM/AAAA
+    
+    // ownership et borrowing
+    let prenom = String::from("Nourddine"); // ownership : prenom possède le String
+    let prenom_ref = &prenom; // borrowing : prenom_ref emprunte le String sans en prendre la possession. Emprunt immuable
+    println!("Le prénom est : {}", prenom_ref); // on peut utiliser prenom_ref
+    let prenom_clone = prenom.clone(); // clone crée une copie du String, ownership reste à prenom
+    let prenom2 = prenom; // ici prenom est déplacé vers prenom2, ownership transféré
+    //let prenom3 = prenom.clone(); //erreur de compilation si on décommente, car l'ownership de prenom a été déplacé vers prenom2
+    // ownership et borrowing sont des concepts clés de Rust pour la gestion de la mémoire
+
+    // 3 MemberShip : ( Appartenance à une structure )
+    // décrit quelles sont les données contenues dans une structure Struct
+
+     // exemple :
+
+    let user = User {
+      nom : String::from("Alexandre"),
+      secu: String::from("1825678290 55")
+    };
+    
+    println!("nom {}",user.nom);
+    // display(&user); // &emprumter un champ d'une structure
+    display(user); 
+
+}
+
+fn display(user: User) -> User{
+  println!(" Nom: {}, num secu : {}", user.nom, user.secu);
+  user
 }
 
 fn addition(n1:i32, n2:i32) -> i32 {
