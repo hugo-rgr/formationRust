@@ -34,10 +34,10 @@ async fn handle_client(mut stream: TcpStream, logger: Arc<Mutex<()>>, client_add
         match tokio::io::AsyncReadExt::read(&mut stream, &mut buffer).await {
             Ok(0) => {
                 println!("Client déconnecté: {}", client_addr);
-                break; // Client déconnecté
+                break;
             }
             Ok(n) => {
-                let message = String::from_utf8_lossy(&buffer[..n]);
+                let message = String::from_utf8_lossy(&buffer[..n]); // from_utf8_lossy permet de convertir les octets en chaîne de caractères, même si ce n'est pas une chaîne UTF-8 valide.
                 
                 // Utiliser le mutex pour écrire dans le log de façon thread-safe
                 {
@@ -50,7 +50,7 @@ async fn handle_client(mut stream: TcpStream, logger: Arc<Mutex<()>>, client_add
                 tokio::io::AsyncWriteExt::write_all(&mut stream, response.as_bytes()).await.unwrap();
             }
             Err(_) => {
-                println!("Erreur de connexion avec le client: {}", client_addr);
+                println!("Client déconnecté: {}", client_addr);
                 break;
             }
         }
