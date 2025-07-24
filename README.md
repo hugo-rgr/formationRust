@@ -474,4 +474,4 @@ Deux projets :
 - client : `tp4_client`
   
 Le client envoie la chaîne de caractères au serveur, et le serveur le reçoit et l’écrit dans le fichier de logs.
-Ces deux projets s'exécutent avec un simple `cargo run`, et on peut faire exécuter plusieurs instances du client pour se connecter au serveur.
+Ces deux projets s'exécutent avec un simple `cargo run` dans la ligne de commandes, et on peut faire exécuter plusieurs instances du client pour se connecter au serveur.
