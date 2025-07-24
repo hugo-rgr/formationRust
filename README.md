@@ -357,8 +357,9 @@ Amélioration du système de gestion de compte bancaire du TP1 avec utilisation 
 Le but était aussi de manipuler les structures et les concepts d'ownership pour la gestion mémoire.
 
 ---
+---
 
-**24/07/2025**
+*24/07/2025*
 
 ## I) Dates
 
