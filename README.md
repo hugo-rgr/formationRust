@@ -355,3 +355,86 @@ Amélioration du système de gestion de compte bancaire du TP1 avec utilisation 
 - Quitter le programme
 
 Le but était aussi de manipuler les structures et les concepts d'ownership pour la gestion mémoire.
+
+---
+
+**24/07/2025**
+
+## I) Dates
+
+* Bibliothèque chrono::Utc (importer en dépendance dans le fichier Cargo.toml) :
+
+```rust
+chrono = {version="<version>", features=[<feature choisie 1>, <feature choisie 2>, <etc>]}
+```
+
+* Exemple:
+
+```rust
+Utc::now(); //heure actuelle
+Utc::now().format("%d/%m/%Y %H:%M:%S") // formatter date au format français jj/mm/AAAA HH/MM/SS 
+```
+
+## II) Ownerships / memberships
+
+* Owner = propriétaire
+* Membership = appartenance à une structure
+⇒ Pourquoi ? Pour garantir la sécurité mémoire
+
+Ownership et borrowing sont des concepts clés de Rust pour la gestion de la mémoire.
+* 1 valeur = 1 propriété unique, responsable de libérer la mémoire lorsqu'elle sort du scope
+* Le propriétaire peut être transféré : Quand le propriétaire est déplacé, l'ancien propriétaire ne peut plus y accéder
+* En sortant du scope, la valeur est libérée automatiquement
+
+```rust
+let prenom = String::from("Nourddine"); // prenom possède le String
+let prenom_ref = &prenom; // emprunt immuable, prenom garde l'ownership
+println!("Le prénom est : {}", prenom_ref);
+
+let prenom_clone = prenom.clone(); // copie indépendante, prenom garde l'ownership
+let prenom2 = prenom; // MOVE : prenom n'est plus accessible, prenom2 devient propriétaire
+
+// let prenom3 = prenom.clone(); // ERREUR : prenom a été moved, plus accessible
+```
+
+Cela peut être appliqué à des fonctions aussi, grâce à leurs paramètres :
+
+```rust
+fn prendre_ownership(nom: String){}
+//lecture seule
+fn emprunter_lecture(nom: &String) {}
+//lecture et écriture
+fn emprunter_ecriture(nom: &mut String) {}
+fn creer_et_retourner_ownership() -> String {
+    let nouveau_nom = String::from("Alice");
+    nouveau_nom // ownership transféré vers l'appelant
+}
+```
+
+* Peut être étendu aux structures :
+
+```rust
+let user = User {
+  nom : String::from("Alexandre"),
+  secu: String::from("1825678290 55")
+};
+    
+println!("nom {}",user.nom);
+// display(&user); // &emprumter un champ d'une structure
+display(user); 
+```
+
+## III) TP3
+
+Création d'un gestionnaire de fichiers interactif utilisant les structures, l'ownership et la gestion des dates.
+
+**On peut :**
+* Choisir/Initialiser un fichier (crée le fichier s'il n'existe pas)
+* Afficher les informations du fichier (nom et date de sélection)
+* Lire le contenu du fichier
+* Écrire/Modifier le fichier (en écrasant le contenu existant)
+* Ajouter du contenu au fichier
+* Supprimer définitivement le fichier
+* Quitter le programme
+
+Le but était d'appliquer les concepts d'ownership (notamment avec la méthode de suppression qui consomme `self`), la gestion des fichiers avec les I/O, l'utilisation de la bibliothèque `chrono` pour les dates, et la manipulation des structures avec `impl`. Le programme utilise `match` pour la gestion des erreurs et des options, ainsi que les emprunts avec `&` pour éviter les transferts d'ownership inutiles.
