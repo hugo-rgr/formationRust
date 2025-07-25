@@ -45,7 +45,6 @@ async fn handle_client(mut stream: TcpStream, logger: Arc<Mutex<()>>, client_add
                     write_log(&message, client_addr);
                 }
                 
-                // Répondre au client
                 let response = "Message recu et enregistre\n";
                 tokio::io::AsyncWriteExt::write_all(&mut stream, response.as_bytes()).await.unwrap();
             }
