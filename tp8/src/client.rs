@@ -7,7 +7,7 @@ use std::io::{self, Write};
 
 #[tokio::main]
 async fn main() {
-    println!("*** Client Chat Simple ***");
+    println!("=== Client Chat Simple ===");
     
     // Demander le pseudo
     print!("Entrez votre pseudo: ");
@@ -21,15 +21,15 @@ async fn main() {
     let mut stream = match TcpStream::connect("127.0.0.1:8080").await {
         Ok(s) => s,
         Err(e) => {
-            println!("Impossible de se connecter: {}", e);
+            println!("❌ Impossible de se connecter: {}", e);
             return;
         }
     };
     
-    println!("Connecté au serveur! Tapez vos messages (ou 'quit' pour quitter):");
+    println!("✅ Connecté au serveur! Tapez vos messages (ou 'quit' pour quitter):");
     
     // Canal pour l'input utilisateur
-    let (tx, mut rx) = tokio::sync::mpsc::unbounded_channel::<String>(); // canal de communication asynchrone entre tâches
+    let (tx, mut rx) = tokio::sync::mpsc::unbounded_channel::<String>();
     
     // Thread pour lire l'input utilisateur
     let username_clone = username.clone();
@@ -64,7 +64,9 @@ async fn main() {
                         if let Ok(message) = ChatMessage::from_bytes(&buffer[..n]) {
                             // Afficher le message (sauf les siens)
                             if message.username != username {
-                                println!("[{}] {}: {}", message.timestamp, message.username, message.content);
+                                println!("\r[{}] {}: {}", message.timestamp, message.username, message.content);
+                                print!("{}: ", username);
+                                io::stdout().flush().unwrap();
                             }
                         }
                     }
