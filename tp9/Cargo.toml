@@ -1,0 +1,17 @@
+[package]
+name = "websocket"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+tokio = { version = "1.46.1", features = ["full"] }
+tokio-tungstenite = "0.20"
+futures-util = "0.3"
+
+[[bin]]
+name = "ws_server"
+path = "src/server.rs"
+
+[[bin]]
+name = "ws_client"
+path = "src/client.rs"
