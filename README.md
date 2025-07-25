@@ -500,6 +500,6 @@ Mise en place d'un client et serveur de chat simple.
 - Sérialisation en json du texte à l'aide de `serde`
 - `tokio::sync:mpsc` : système de canaux asynchrones pour la communication entre tâches
 
-<img width="1581" height="532" alt="image" src="https://github.com/user-attachments/assets/2f9df929-7b6d-4893-bdce-f1bee83dbfdf" />
+<img width="1581" height="524" alt="image" src="https://github.com/user-attachments/assets/2590eb59-62f0-4741-9a6d-1c5841529948" />
 
 
