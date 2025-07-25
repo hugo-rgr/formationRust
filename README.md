@@ -475,3 +475,21 @@ Deux projets :
   
 Le client envoie la chaîne de caractères au serveur, et le serveur le reçoit et l’écrit dans le fichier de logs.
 Ces deux projets s'exécutent avec un simple `cargo run` dans la ligne de commandes, et on peut faire exécuter plusieurs instances du client pour se connecter au serveur.
+
+---
+---
+
+*25/07/2025*
+
+## I) TP7
+
+Mise en place d’un client et serveur DNS simples.
+
+- Deux fichiers dans le dossier tp7/src : `client.rs` et `server.rs`
+- Domaines prédéfinis
+- Protocole UDP (envoyer et recevoir des paquets UDP) avec tokio::net::UdpSocket
+- Construire des messages DNS et résoudre la logique DNS
+- Manipuler des données binaires
+
+<img width="1588" height="660" alt="image" src="https://github.com/user-attachments/assets/a9ea6009-c226-4129-a7bc-fe87d0ea68ee" />
+
