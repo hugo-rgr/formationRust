@@ -493,3 +493,13 @@ Mise en place d’un client et serveur DNS simples.
 
 <img width="1588" height="660" alt="image" src="https://github.com/user-attachments/assets/a9ea6009-c226-4129-a7bc-fe87d0ea68ee" />
 
+## II) TP8
+
+Mise en place d'un client et serveur de chat simple.
+
+- Sérialisation en json du texte à l'aide de `serde`
+- `tokio::sync:mpsc` : système de canaux asynchrones pour la communication entre tâches
+
+<img width="1581" height="532" alt="image" src="https://github.com/user-attachments/assets/2f9df929-7b6d-4893-bdce-f1bee83dbfdf" />
+
+
