@@ -485,10 +485,11 @@ Ces deux projets s'exécutent avec un simple `cargo run` dans la ligne de comman
 
 Mise en place d’un client et serveur DNS simples.
 
-- Deux fichiers dans le dossier tp7/src : [client.rs](http://client.rs) et server.rs
+- Deux fichiers dans le dossier tp7/src : `client.rs` et `server.rs`
 - Domaines prédéfinis
 - Protocole UDP (envoyer et recevoir des paquets UDP) avec tokio::net::UdpSocket
 - Construire des messages DNS et résoudre la logique DNS
 - Manipuler des données binaires
 
-![Image](https://file.notion.so/f/f/f99b4f65-1b29-46ca-b3dc-2c4da2db1546/2e791a49-ffa1-492d-9e16-3afe7f86ff1f/image.png?table=block&id=23b6d5b1-b080-80ee-893a-c5e45edeadb4&spaceId=f99b4f65-1b29-46ca-b3dc-2c4da2db1546&expirationTimestamp=1753488000000&signature=cF9XP9XacLRJaSoxte5r_fvHi2L20UE2nMXZlwlvT2M&downloadName=image.png)
+<img width="1588" height="660" alt="image" src="https://github.com/user-attachments/assets/a9ea6009-c226-4129-a7bc-fe87d0ea68ee" />
+
