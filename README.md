@@ -502,4 +502,16 @@ Mise en place d'un client et serveur de chat simple.
 
 <img width="1581" height="524" alt="image" src="https://github.com/user-attachments/assets/2590eb59-62f0-4741-9a6d-1c5841529948" />
 
+## III) TP9
+
+Mise en place d'un client et serveur websocket simple.
+
+- Utilisation de `tokio_tungstenite`
+- Utilisation de `futures_util` (outils supplémentaires pour manipuler les promesses
+- Gestion de messages WebSocket (texte, binaire)
+- Handhshake WebSocket
+
+<img width="1585" height="420" alt="image" src="https://github.com/user-attachments/assets/94588b87-99c7-484b-bf68-179bd921acaa" />
+
+
 
