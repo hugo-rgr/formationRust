@@ -81,7 +81,7 @@ async fn remove_client(
 
 #[tokio::main]
 async fn main() -> tokio::io::Result<()> {
-    println!("=== Serveur Chat Simple ===");
+    println!("*** Serveur Chat Simple ***");
     
     // Liste des clients connectés
     let clients: ClientList = Arc::new(Mutex::new(Vec::new()));
